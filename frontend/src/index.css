@@ -1,0 +1,50 @@
+:root {
+  /* background */
+  --color-bg: #0b1120;
+  --color-surface: #151e2e;
+  --color-surface-hover: #1d293d;
+
+  /* primary */
+  --color-primary: #818cf8;
+  --color-primary-hover: #a5b4fc;
+  --color-primary-active: #6366f1;
+
+  /* secondary */
+  --color-secondary: #475569;
+  --color-secondary-hover: #64748b;
+  --color-secondary-active: #334155;
+
+  /* text */
+  --color-text: #f8fafc;
+  --color-text-secondary: #cbd5e1;
+  --color-text-muted: #94a3b8;
+
+  /* border */
+  --color-border: #293548;
+
+  /* success */
+  --color-success: #4ade80;
+
+  /* warning */
+  --color-warning: #fbbf24;
+
+  /* danger */
+  --color-danger: #f87171;
+  --color-danger-hover: #ef4444;
+  --color-danger-active: #dc2626;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  margin: 0;
+  min-width: 610px;
+}
+
+main {
+  margin: 40px 90px 30px 90px;
+}
+
+.hidden {
+  display: none !important;
+}
