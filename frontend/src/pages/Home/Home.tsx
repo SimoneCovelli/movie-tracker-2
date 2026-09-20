@@ -1,4 +1,4 @@
-import Navbar from "../../components/Navbar/Navbar.tsx";
+import Navbar from "../../components/NavBar/NavBar.tsx";
 import { Link } from "react-router-dom";
 import "./Home.css";
 

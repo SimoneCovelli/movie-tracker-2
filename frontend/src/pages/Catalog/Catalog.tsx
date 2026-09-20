@@ -1,10 +1,70 @@
-import Navbar from "../../components/Navbar//Navbar.tsx";
+import { useState } from "react";
+import "./Catalog.css";
+import Navbar from "../../components/NavBar/NavBar.tsx";
+import SearchBar from "../../components/SearchBar/SearchBar.tsx";
+import PageNumber from "../../components/PageNumber/PageNumber.tsx";
+import CatalogMovieCard from "../../components/CatalogMovieCard/CatalogMovieCard.tsx";
+import Loading from "../../components/Loading/Loading.tsx";
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage.tsx";
+import useCatalogMovies from "../../hooks/useCatalogMovies.ts";
 
 function Catalog() {
+  const [pageNumber, setPageNumber] = useState(1);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const { movies, totalPages, loading, error } = useCatalogMovies(
+    pageNumber,
+    searchQuery,
+  );
+
+  const handleOnSearch = (query: string) => {
+    setPageNumber(1);
+    setSearchQuery(query);
+  };
+
   return (
     <>
       <Navbar></Navbar>
-      <h1>Catalog</h1>
+
+      <main>
+        <SearchBar onSearch={handleOnSearch}></SearchBar>
+
+        <div className="catalog-container">
+          <h3 className="catalog-title">
+            {searchQuery
+              ? `Search results for "${searchQuery}"`
+              : "Popular movies"}
+          </h3>
+
+          <PageNumber
+            totalPages={totalPages}
+            pageNumber={pageNumber}
+            onPageChange={setPageNumber}
+          ></PageNumber>
+
+          {loading && <Loading loadingMessage="Loading movies..."></Loading>}
+
+          {!loading && !error && movies.length > 0 && (
+            <div className="movie-grid">
+              {movies.map((movie) => (
+                <CatalogMovieCard
+                  key={movie.id}
+                  movie={movie}
+                ></CatalogMovieCard>
+              ))}
+            </div>
+          )}
+
+          {!loading && !error && movies.length === 0 && (
+            <section className="movies-not-found">
+              <h1>No movies found</h1>
+              <p>Sorry, we couldn't find any movies.</p>
+            </section>
+          )}
+
+          {!loading && error && <ErrorMessage error={error}></ErrorMessage>}
+        </div>
+      </main>
     </>
   );
 }

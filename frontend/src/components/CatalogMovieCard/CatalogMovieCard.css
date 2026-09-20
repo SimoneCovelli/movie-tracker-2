@@ -1,0 +1,39 @@
+.movie-card {
+  background-color: var(--color-surface);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.movie-card:hover {
+  background-color: var(--color-surface-hover);
+  transform: translateY(-3px);
+}
+
+.movie-card-link {
+  text-decoration: none;
+}
+
+.movie-poster {
+  display: block;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  object-position: center;
+}
+
+.movie-info {
+  padding: 12px;
+}
+
+.movie-title {
+  margin: 0;
+  color: var(--color-text);
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.movie-release-date {
+  margin: 5px 0 0;
+  color: var(--color-text-muted);
+  font-size: 14px;
+}

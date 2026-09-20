@@ -1,0 +1,26 @@
+.page-number-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 25px;
+  font-size: 17px;
+}
+
+.page-label {
+  color: var(--color-text-secondary);
+}
+
+.page-number {
+  padding: 8px;
+  width: 70px;
+  background-color: var(--color-surface);
+  color: var(--color-text-se);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  font-size: 17px;
+  outline: none;
+}
+
+.page-number:focus {
+  border-color: var(--color-primary);
+}

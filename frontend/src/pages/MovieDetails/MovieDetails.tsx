@@ -1,13 +1,13 @@
-import "./MyLibrary.css";
+import "./MovieDetails.css";
 import Navbar from "../../components/NavBar/NavBar.tsx";
 
-function MyLibrary() {
+function MovieDetails() {
   return (
     <>
       <Navbar></Navbar>
-      <h1>My library</h1>
+      <h1>Movie details</h1>
     </>
   );
 }
 
-export default MyLibrary;
+export default MovieDetails;

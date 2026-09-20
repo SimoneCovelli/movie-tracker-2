@@ -1,0 +1,58 @@
+.catalog-container {
+  margin-top: 40px;
+}
+
+.catalog-title {
+  color: var(--color-text-secondary);
+}
+
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 25px;
+}
+
+/* movies not found */
+
+.movies-not-found {
+  text-align: center;
+  padding: 60px 0;
+  border-radius: 0.7rem;
+  background-color: var(--color-surface);
+}
+
+.movies-not-found h1 {
+  color: var(--color-text);
+  margin-bottom: 12px;
+}
+
+.movies-not-found p {
+  color: var(--color-text-muted);
+  margin-bottom: 28px;
+}
+
+/* media */
+
+@media (max-width: 1400px) {
+  .movie-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media (max-width: 1200px) {
+  .movie-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .movie-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .movie-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

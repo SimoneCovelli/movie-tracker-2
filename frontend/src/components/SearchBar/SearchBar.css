@@ -1,0 +1,31 @@
+.search-bar {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.search-bar-button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.search-button {
+  background-color: var(--color-primary);
+  color: var(--color-text);
+}
+
+.search-button:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.clear-button {
+  background-color: var(--color-secondary);
+  color: var(--color-text);
+}
+
+.clear-button:hover {
+  background-color: var(--color-secondary-hover);
+}
