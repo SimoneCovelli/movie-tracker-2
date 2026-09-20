@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "./Catalog.css";
 import Navbar from "../../components/NavBar/NavBar.tsx";
 import SearchBar from "../../components/SearchBar/SearchBar.tsx";
@@ -6,21 +5,17 @@ import PageNumber from "../../components/PageNumber/PageNumber.tsx";
 import CatalogMovieCard from "../../components/CatalogMovieCard/CatalogMovieCard.tsx";
 import Loading from "../../components/Loading/Loading.tsx";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage.tsx";
+import useCatalogParams from "../../hooks/useCatalogParams.ts";
 import useCatalogMovies from "../../hooks/useCatalogMovies.ts";
 
 function Catalog() {
-  const [pageNumber, setPageNumber] = useState(1);
-  const [searchQuery, setSearchQuery] = useState("");
+  const { pageNumber, searchQuery, handlePageChange, handleOnSearch } =
+    useCatalogParams();
 
   const { movies, totalPages, loading, error } = useCatalogMovies(
     pageNumber,
     searchQuery,
   );
-
-  const handleOnSearch = (query: string) => {
-    setPageNumber(1);
-    setSearchQuery(query);
-  };
 
   return (
     <>
@@ -39,7 +34,7 @@ function Catalog() {
           <PageNumber
             totalPages={totalPages}
             pageNumber={pageNumber}
-            onPageChange={setPageNumber}
+            onPageChange={handlePageChange}
           ></PageNumber>
 
           {loading && <Loading loadingMessage="Loading movies..."></Loading>}

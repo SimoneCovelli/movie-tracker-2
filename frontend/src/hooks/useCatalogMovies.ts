@@ -2,15 +2,17 @@ import { useState, useEffect } from "react";
 import { getCatalogMovies } from "../services/catalogServices";
 import type { Movie } from "../types/Movie";
 
-function useCatalogMovies(
-  pageNumber: number,
-  searchQuery: string,
-): {
+type UseCatalogMoviesResult = {
   movies: Movie[];
   totalPages: number;
   loading: boolean;
   error: string | null;
-} {
+};
+
+function useCatalogMovies(
+  pageNumber: number,
+  searchQuery: string,
+): UseCatalogMoviesResult {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
