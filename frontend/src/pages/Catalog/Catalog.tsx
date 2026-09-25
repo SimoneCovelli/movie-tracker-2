@@ -24,7 +24,7 @@ function Catalog() {
       <main>
         <SearchBar onSearch={handleOnSearch}></SearchBar>
 
-        <div className="catalog-container">
+        <section className="catalog-container">
           <h3 className="catalog-title">
             {searchQuery
               ? `Search results for "${searchQuery}"`
@@ -51,14 +51,14 @@ function Catalog() {
           )}
 
           {!loading && !error && movies.length === 0 && (
-            <section className="movies-not-found">
+            <div className="movies-not-found">
               <h1>No movies found</h1>
               <p>Sorry, we couldn't find any movies.</p>
-            </section>
+            </div>
           )}
 
           {!loading && error && <ErrorMessage error={error}></ErrorMessage>}
-        </div>
+        </section>
       </main>
     </>
   );

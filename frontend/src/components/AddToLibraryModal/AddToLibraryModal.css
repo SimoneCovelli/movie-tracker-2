@@ -1,0 +1,31 @@
+.modal-content p {
+  margin: 0;
+  padding: 0 32px 24px 32px;
+}
+
+.status-options {
+  display: flex;
+  margin: 0 32px 24px 32px;
+  gap: 16px;
+}
+
+.status-options button {
+  flex: 1;
+  padding: 14px;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  background-color: var(--color-secondary);
+  color: var(--color-text);
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.status-options button:hover {
+  background-color: var(--color-secondary-hover);
+}
+
+.status-options button.selected {
+  background-color: var(--color-surface-hover);
+  border-color: var(--color-primary);
+}

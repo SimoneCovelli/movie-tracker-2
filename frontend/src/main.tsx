@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import Home from "./pages/Home/Home.tsx";
 import Catalog from "./pages/Catalog/Catalog.tsx";
-import MovieDetails from "./pages/MovieDetails/MovieDetails.tsx";
+import CatalogMovieDetails from "./pages/CatalogMovieDetails/CatalogMovieDetails.tsx";
 import MyLibrary from "./pages/MyLibrary/MyLibrary.tsx";
 
 const router = createBrowserRouter([
@@ -17,8 +17,8 @@ const router = createBrowserRouter([
     element: <Catalog />,
   },
   {
-    path: "/catalog/movie/:movieID",
-    element: <MovieDetails />,
+    path: "/catalog/movie/:movieId",
+    element: <CatalogMovieDetails />,
   },
   {
     path: "/myLibrary",
