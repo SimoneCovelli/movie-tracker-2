@@ -1,16 +1,27 @@
 import { Link } from "react-router-dom";
 import "./CatalogMovieCard.css";
 import blackPoster from "../../assets/black.jpg";
+import { buildCatalogUrl } from "../../utils/catalogUrl";
 import type { Movie } from "../../types/Movie";
 
 type CatalogMovieCardProps = {
   movie: Movie;
+  pageNumber: number;
+  searchQuery: string;
 };
 
-function CatalogMovieCard({ movie }: CatalogMovieCardProps) {
+function CatalogMovieCard({
+  movie,
+  pageNumber,
+  searchQuery,
+}: CatalogMovieCardProps) {
   return (
     <article className="movie-card">
-      <Link to={`/catalog/movie/${movie.id}`} className="movie-card-link">
+      <Link
+        to={`/catalog/movie/${movie.id}`}
+        state={{ from: buildCatalogUrl(pageNumber, searchQuery) }}
+        className="movie-card-link"
+      >
         <img
           src={
             movie.posterPath

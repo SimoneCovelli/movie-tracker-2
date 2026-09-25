@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useState } from "react";
 import "./CatalogMovieDetails.css";
 import Navbar from "../../components/NavBar/NavBar.tsx";
@@ -14,6 +14,8 @@ import useToast from "../../hooks/useToast.ts";
 import type { MovieStatus } from "../../types/MovieStatus";
 
 function CatalogMovieDetails() {
+  const location = useLocation();
+
   const { movieId: idParam } = useParams();
   const movieId = idParam ? idParam : null;
 
@@ -46,7 +48,9 @@ function CatalogMovieDetails() {
       <Navbar></Navbar>
 
       <main>
-        <BackLink to={"/catalog"}>← Back to catalog</BackLink>
+        <BackLink to={location.state?.from ?? "/catalog"}>
+          ← Back to catalog
+        </BackLink>
 
         {loading && <Loading loadingMessage="Loading movies..."></Loading>}
 

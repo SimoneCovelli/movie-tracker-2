@@ -45,6 +45,8 @@ function Catalog() {
                 <CatalogMovieCard
                   key={movie.id}
                   movie={movie}
+                  pageNumber={pageNumber}
+                  searchQuery={searchQuery}
                 ></CatalogMovieCard>
               ))}
             </div>
