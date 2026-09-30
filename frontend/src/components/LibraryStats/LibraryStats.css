@@ -1,0 +1,4 @@
+.library-stats span:not(:last-child)::after {
+  content: "\00B7";
+  margin-left: 12px;
+}

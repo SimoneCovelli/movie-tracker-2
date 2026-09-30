@@ -5,6 +5,7 @@ import "./index.css";
 import Home from "./pages/Home/Home.tsx";
 import Catalog from "./pages/Catalog/Catalog.tsx";
 import CatalogMovieDetails from "./pages/CatalogMovieDetails/CatalogMovieDetails.tsx";
+import MyLibraryMovieDetails from "./pages/MyLibraryMovieDetails/MyLibraryMovieDetails.tsx";
 import MyLibrary from "./pages/MyLibrary/MyLibrary.tsx";
 
 const router = createBrowserRouter([
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
   {
     path: "/myLibrary",
     element: <MyLibrary />,
+  },
+  {
+    path: "/myLibrary/movie/:movieId",
+    element: <MyLibraryMovieDetails />,
   },
 ]);
 

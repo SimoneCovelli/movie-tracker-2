@@ -1,0 +1,15 @@
+.library-filter {
+  padding: 0 14px;
+  height: 44px;
+  background-color: var(--color-surface);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.library-filter:hover {
+  background-color: var(--color-surface-hover);
+  color: var(--color-text);
+}

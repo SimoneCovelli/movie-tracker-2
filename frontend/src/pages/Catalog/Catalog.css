@@ -12,27 +12,6 @@
   gap: 25px;
 }
 
-/* movies not found */
-
-.movies-not-found {
-  text-align: center;
-  padding: 60px 0;
-  border-radius: 0.7rem;
-  background-color: var(--color-surface);
-}
-
-.movies-not-found h1 {
-  color: var(--color-text);
-  margin-bottom: 12px;
-}
-
-.movies-not-found p {
-  color: var(--color-text-muted);
-  margin-bottom: 28px;
-}
-
-/* media */
-
 @media (max-width: 1400px) {
   .movie-grid {
     grid-template-columns: repeat(5, 1fr);

@@ -5,6 +5,7 @@ import PageNumber from "../../components/PageNumber/PageNumber.tsx";
 import CatalogMovieCard from "../../components/CatalogMovieCard/CatalogMovieCard.tsx";
 import Loading from "../../components/Loading/Loading.tsx";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage.tsx";
+import MoviesNotFoundMessage from "../../components/MoviesNotFoundMessage/MoviesNotFoundMessage.tsx";
 import useCatalogParams from "../../hooks/useCatalogParams.ts";
 import useCatalogMovies from "../../hooks/useCatalogMovies.ts";
 
@@ -53,10 +54,7 @@ function Catalog() {
           )}
 
           {!loading && !error && movies.length === 0 && (
-            <div className="movies-not-found">
-              <h1>No movies found</h1>
-              <p>Sorry, we couldn't find any movies.</p>
-            </div>
+            <MoviesNotFoundMessage></MoviesNotFoundMessage>
           )}
 
           {!loading && error && <ErrorMessage error={error}></ErrorMessage>}
