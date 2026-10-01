@@ -1,6 +1,6 @@
 import "./LibraryToolbar.css";
 import SearchInput from "../SearchInput/SearchInput";
-import LibraryFilter from "../LibrrayFilter/LibraryFilter";
+import LibraryFilter from "../LibraryFilter/LibraryFilter";
 import type { FilterOption } from "../../types/FilterOption";
 
 type LibraryToolbarProps = {
