@@ -1,15 +1,18 @@
-import { useState, useEffect } from "react";
 import "./LibraryToolbar.css";
 import SearchInput from "../SearchInput/SearchInput";
 import LibraryFilter from "../LibrrayFilter/LibraryFilter";
 import type { FilterOption } from "../../types/FilterOption";
 
 type LibraryToolbarProps = {
+  searchQuery: string;
+  statusFilter: string;
+  sort: string;
+  tagFilter: string;
+  tags: string[];
   onSearch: (query: string) => void;
   onStatusFilterChange: (status: string) => void;
   onSortChange: (sort: string) => void;
   onTagFilterChange: (tag: string) => void;
-  tags: string[];
 };
 
 const movieStatusOptions: FilterOption[] = [
@@ -29,18 +32,16 @@ const sortingOptions: FilterOption[] = [
 ];
 
 function LibraryToolbar({
+  searchQuery,
+  statusFilter,
+  sort,
+  tagFilter,
+  tags,
   onSearch,
   onStatusFilterChange,
   onSortChange,
   onTagFilterChange,
-  tags,
 }: LibraryToolbarProps) {
-  const [searchInput, setSearchInput] = useState("");
-
-  useEffect(() => {
-    onSearch(searchInput);
-  }, [searchInput]);
-
   const tagOptions: FilterOption[] = [
     { value: "", label: "All tags" },
     ...tags.map((tag) => ({
@@ -53,25 +54,28 @@ function LibraryToolbar({
     <div className="library-toolbar">
       <div className="library-search">
         <SearchInput
-          value={searchInput}
+          value={searchQuery}
           placeholder="Search by title..."
-          onValueChange={setSearchInput}
+          onValueChange={onSearch}
         ></SearchInput>
       </div>
 
       <div className="library-filters">
         <LibraryFilter
           options={movieStatusOptions}
+          value={statusFilter}
           onValueChange={onStatusFilterChange}
         ></LibraryFilter>
 
         <LibraryFilter
           options={sortingOptions}
+          value={sort}
           onValueChange={onSortChange}
         ></LibraryFilter>
 
         <LibraryFilter
           options={tagOptions}
+          value={tagFilter}
           onValueChange={onTagFilterChange}
         ></LibraryFilter>
       </div>

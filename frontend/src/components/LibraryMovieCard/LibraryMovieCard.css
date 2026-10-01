@@ -42,22 +42,6 @@
   font-size: 14px;
 }
 
-.movie-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 3px;
-}
-
-.tag {
-  padding: 4px 8px;
-  background-color: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: 5px;
-  color: var(--color-text-secondary);
-  font-size: 14px;
-}
-
 .movie-meta {
   display: flex;
   flex-direction: column;

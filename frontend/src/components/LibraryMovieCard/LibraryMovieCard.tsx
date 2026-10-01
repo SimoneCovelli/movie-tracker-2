@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import "./LibraryMovieCard.css";
 import blackPoster from "../../assets/black.jpg";
 import CardMovieRating from "../CardMovieRating/CardMovieRating";
+import CardMovieTags from "../CardMovieTags/CardMovieTags";
 import { buildLibraryUrl } from "../../utils/libraryUrl";
 import type { LibraryMovie } from "../../types/LibraryMovie";
 
@@ -35,19 +36,13 @@ function LibraryMovieCard({
             : blackPoster
         }
         className="movie-poster"
-      ></img>
+      />
 
       <div className="movie-info">
         <h2 className="movie-title">{movie.title}</h2>
         <span className="release-date">{movie.releaseDate}</span>
 
-        <div className="movie-tags">
-          {movie.tags.map((tag) => (
-            <span key={tag} className="tag">
-              {tag}
-            </span>
-          ))}
-        </div>
+        <CardMovieTags tags={movie.tags}></CardMovieTags>
       </div>
 
       <div className="movie-meta">

@@ -7,19 +7,6 @@
   font-size: 28px;
 }
 
-.library-stats {
-  display: flex;
-  gap: 12px;
-  color: var(--color-text-muted);
-  font-size: 16px;
-}
-
-.results-info {
-  margin-bottom: 16px;
-  color: var(--color-text-muted);
-  font-size: 16px;
-}
-
 .movie-list {
   display: flex;
   flex-direction: column;

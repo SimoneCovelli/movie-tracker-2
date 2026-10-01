@@ -7,6 +7,7 @@ import Loading from "../../components/Loading/Loading.tsx";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage.tsx";
 import MoviesNotFoundMessage from "../../components/MoviesNotFoundMessage/MoviesNotFoundMessage.tsx";
 import LibraryMovieCard from "../../components/LibraryMovieCard/LibraryMovieCard.tsx";
+import LibraryResultsCount from "../../components/LibraryResultsCount/LibraryResultsCounts.tsx";
 import useLibraryParams from "../../hooks/useLibraryParams.ts";
 import useLibraryMovies from "../../hooks/useLibraryMovies.ts";
 import { getTags, getLibraryCounts } from "../../services/myLibraryServices.ts";
@@ -66,23 +67,16 @@ function MyLibrary() {
       <main>
         <div className="library-header">
           <h1>My Movie Library</h1>
-
-          {movieCounts && (
-            <LibraryStats
-              total={movieCounts.total}
-              watched={movieCounts.watched}
-              toWatch={movieCounts.toWatch}
-            ></LibraryStats>
-          )}
-
-          {!movieCounts && (
-            <div className="library-stats">Movie count unavailable</div>
-          )}
+          <LibraryStats movieCounts={movieCounts}></LibraryStats>
         </div>
 
         <LibraryToolbar
-          onSearch={handleOnSearch}
+          searchQuery={searchQuery}
+          statusFilter={statusFilter}
+          sort={sort}
+          tagFilter={tagFilter}
           tags={movieTags}
+          onSearch={handleOnSearch}
           onStatusFilterChange={handleStatusFilterChange}
           onSortChange={handleSortChange}
           onTagFilterChange={handleTagFilterChange}
@@ -90,15 +84,11 @@ function MyLibrary() {
 
         {loading && <Loading loadingMessage="Loading movies..."></Loading>}
 
-        {!loading && movieCounts && (
-          <div className="results-info">
-            Showing {movies.length} of {movieCounts.total}{" "}
-            {movieCounts.total === 1 ? "movie" : "movies"}
-          </div>
-        )}
-
-        {!loading && !movieCounts && (
-          <div className="results-info">Movie count unavailable</div>
+        {!loading && (
+          <LibraryResultsCount
+            displayedMovieCount={movies.length}
+            movieCounts={movieCounts}
+          ></LibraryResultsCount>
         )}
 
         {!loading && !error && movies.length > 0 && (

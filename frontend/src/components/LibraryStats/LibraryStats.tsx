@@ -1,18 +1,25 @@
 import "./LibraryStats.css";
+import type { LibraryCounts } from "../../types/LibraryCounts";
 
 type LibraryStatsProps = {
-  total: number;
-  watched: number;
-  toWatch: number;
+  movieCounts: LibraryCounts | null;
 };
 
-function LibraryStats({ total, watched, toWatch }: LibraryStatsProps) {
+function LibraryStats({ movieCounts }: LibraryStatsProps) {
   return (
-    <div className="library-stats">
-      <span>{total} movies</span>
-      <span>{watched} watched</span>
-      <span>{toWatch} to watch</span>
-    </div>
+    <>
+      {movieCounts && (
+        <div className="library-stats">
+          <span>{movieCounts.total} movies</span>
+          <span>{movieCounts.watched} watched</span>
+          <span>{movieCounts.toWatch} to watch</span>
+        </div>
+      )}
+
+      {!movieCounts && (
+        <div className="library-stats">Movie count unavailable</div>
+      )}
+    </>
   );
 }
 
