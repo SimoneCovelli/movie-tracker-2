@@ -27,7 +27,7 @@ function LibraryMovieCard({
       state={{
         from: buildLibraryUrl(searchQuery, statusFilter, sort, tagFilter),
       }}
-      className="movie-row"
+      className="library-movie-row"
     >
       <img
         src={
@@ -35,18 +35,18 @@ function LibraryMovieCard({
             ? `https://image.tmdb.org/t/p/w500${movie.posterPath}`
             : blackPoster
         }
-        className="movie-poster"
+        className="library-movie-poster"
       />
 
-      <div className="movie-info">
-        <h2 className="movie-title">{movie.title}</h2>
-        <span className="release-date">{movie.releaseDate}</span>
+      <div className="library-movie-info">
+        <h2 className="library-movie-title">{movie.title}</h2>
+        <span className="library-movie-release-date">{movie.releaseDate}</span>
 
         <CardMovieTags tags={movie.tags}></CardMovieTags>
       </div>
 
-      <div className="movie-meta">
-        <span className={"status " + movie.status}>
+      <div className="library-movie-meta">
+        <span className={"library-movie-status " + movie.status}>
           {movie.status === "watched" ? "Watched" : "To watch"}
         </span>
 

@@ -16,11 +16,11 @@ function CatalogMovieCard({
   searchQuery,
 }: CatalogMovieCardProps) {
   return (
-    <article className="movie-card">
+    <article className="catalog-movie-card">
       <Link
         to={`/catalog/movie/${movie.id}`}
         state={{ from: buildCatalogUrl(pageNumber, searchQuery) }}
-        className="movie-card-link"
+        className="catalog-movie-card-link"
       >
         <img
           src={
@@ -28,12 +28,12 @@ function CatalogMovieCard({
               ? `https://image.tmdb.org/t/p/w500${movie.posterPath}`
               : blackPoster
           }
-          className="movie-poster"
+          className="catalog-movie-poster"
         ></img>
 
-        <div className="movie-info">
-          <h3 className="movie-title">{movie.title}</h3>
-          <p className="movie-release-date">{movie.releaseDate}</p>
+        <div className="catalog-movie-info">
+          <h3 className="catalog-movie-title">{movie.title}</h3>
+          <p className="catalog-movie-release-date">{movie.releaseDate}</p>
         </div>
       </Link>
     </article>

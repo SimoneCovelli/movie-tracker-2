@@ -1,4 +1,4 @@
-.movie-row {
+.library-movie-row {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
@@ -10,13 +10,13 @@
   text-decoration: none;
 }
 
-.movie-row:hover {
+.library-movie-row:hover {
   background-color: var(--color-surface-hover);
   border-color: var(--color-secondary);
   transform: translateY(-1px);
 }
 
-.movie-poster {
+.library-movie-poster {
   width: 100px;
   aspect-ratio: 2 / 3;
   object-fit: cover;
@@ -24,25 +24,25 @@
   border-radius: 6px;
 }
 
-.movie-info {
+.library-movie-info {
   display: flex;
   flex-direction: column;
   gap: 8px;
   padding-left: 24px;
 }
 
-.movie-info h2 {
+.library-movie-info h2 {
   margin: 0;
   font-size: 22px;
 }
 
-.release-date {
+.library-movie-release-date {
   margin: 0;
   color: var(--color-text-muted);
   font-size: 14px;
 }
 
-.movie-meta {
+.library-movie-meta {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -50,15 +50,15 @@
   padding: 0 8px 0 24px;
 }
 
-.status {
+.library-movie-status {
   font-size: 14px;
   font-weight: bold;
 }
 
-.status.watched {
+.library-movie-status.watched {
   color: var(--color-text);
 }
 
-.status.to-watch {
+.library-movie-status.to-watch {
   color: var(--color-text-muted);
 }
