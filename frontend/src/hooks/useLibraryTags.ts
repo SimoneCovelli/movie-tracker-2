@@ -14,7 +14,6 @@ function useLibraryTags(): UseLibraryTagsResult {
     async function loadTags(): Promise<void> {
       try {
         setLoadingTags(true);
-        await new Promise((resolve) => setTimeout(resolve, 8000)); //TOREMOVE
         const tags = await getTags();
         setMovieTags(tags);
       } catch (caughtError) {

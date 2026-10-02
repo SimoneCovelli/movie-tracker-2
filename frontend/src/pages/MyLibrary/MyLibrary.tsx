@@ -56,6 +56,7 @@ function MyLibrary() {
           sort={sort}
           tagFilter={tagFilter}
           tags={movieTags}
+          loadingTags={loadingTags}
           onSearch={handleOnSearch}
           onStatusFilterChange={handleStatusFilterChange}
           onSortChange={handleSortChange}

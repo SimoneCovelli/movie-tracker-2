@@ -9,6 +9,7 @@ type LibraryToolbarProps = {
   sort: string;
   tagFilter: string;
   tags: string[];
+  loadingTags: boolean;
   onSearch: (query: string) => void;
   onStatusFilterChange: (status: string) => void;
   onSortChange: (sort: string) => void;
@@ -37,13 +38,17 @@ function LibraryToolbar({
   sort,
   tagFilter,
   tags,
+  loadingTags,
   onSearch,
   onStatusFilterChange,
   onSortChange,
   onTagFilterChange,
 }: LibraryToolbarProps) {
   const tagOptions: FilterOption[] = [
-    { value: "", label: "All tags" },
+    {
+      value: "",
+      label: loadingTags ? "Loading tags..." : "All tags",
+    },
     ...tags.map((tag) => ({
       value: tag,
       label: tag,
@@ -77,6 +82,7 @@ function LibraryToolbar({
           options={tagOptions}
           value={tagFilter}
           onValueChange={onTagFilterChange}
+          disabled={loadingTags}
         ></LibraryFilter>
       </div>
     </div>
