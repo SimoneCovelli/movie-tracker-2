@@ -14,6 +14,7 @@ type LibraryToolbarProps = {
   onStatusFilterChange: (status: string) => void;
   onSortChange: (sort: string) => void;
   onTagFilterChange: (tag: string) => void;
+  onReset: () => void;
 };
 
 const movieStatusOptions: FilterOption[] = [
@@ -43,6 +44,7 @@ function LibraryToolbar({
   onStatusFilterChange,
   onSortChange,
   onTagFilterChange,
+  onReset,
 }: LibraryToolbarProps) {
   const tagOptions: FilterOption[] = [
     {
@@ -65,25 +67,31 @@ function LibraryToolbar({
         ></SearchInput>
       </div>
 
-      <div className="library-filters">
-        <LibraryFilter
-          options={movieStatusOptions}
-          value={statusFilter}
-          onValueChange={onStatusFilterChange}
-        ></LibraryFilter>
+      <div className="library-toolbar-actions">
+        <div className="library-filters">
+          <LibraryFilter
+            options={movieStatusOptions}
+            value={statusFilter}
+            onValueChange={onStatusFilterChange}
+          ></LibraryFilter>
 
-        <LibraryFilter
-          options={sortingOptions}
-          value={sort}
-          onValueChange={onSortChange}
-        ></LibraryFilter>
+          <LibraryFilter
+            options={sortingOptions}
+            value={sort}
+            onValueChange={onSortChange}
+          ></LibraryFilter>
 
-        <LibraryFilter
-          options={tagOptions}
-          value={tagFilter}
-          onValueChange={onTagFilterChange}
-          disabled={loadingTags}
-        ></LibraryFilter>
+          <LibraryFilter
+            options={tagOptions}
+            value={tagFilter}
+            onValueChange={onTagFilterChange}
+            disabled={loadingTags}
+          ></LibraryFilter>
+        </div>
+
+        <button className="reset-library-filters-button" onClick={onReset}>
+          Reset
+        </button>
       </div>
     </div>
   );

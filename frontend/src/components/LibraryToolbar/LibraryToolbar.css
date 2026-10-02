@@ -14,18 +14,41 @@
   width: 100%;
 }
 
+.library-toolbar-actions {
+  display: flex;
+  gap: 20px;
+}
+
 .library-filters {
   display: flex;
   gap: 10px;
 }
 
-@media (max-width: 800px) {
+.reset-library-filters-button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: var(--color-secondary);
+  color: var(--color-text);
+}
+
+.reset-library-filters-button:hover {
+  background-color: var(--color-secondary-hover);
+}
+
+@media (max-width: 960px) {
   .library-toolbar {
     flex-direction: column;
   }
 
   .library-search {
     max-width: none;
+  }
+
+  .library-toolbar-actions {
+    flex-direction: column;
   }
 
   .library-filters {

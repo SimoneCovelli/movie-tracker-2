@@ -9,6 +9,7 @@ type useLibraryParamsResult = {
   handleStatusFilterChange: (status: string) => void;
   handleSortChange: (sort: string) => void;
   handleTagFilterChange: (tag: string) => void;
+  handleReset: () => void;
 };
 
 function useLibraryParams(): useLibraryParamsResult {
@@ -56,6 +57,10 @@ function useLibraryParams(): useLibraryParamsResult {
     updateSearchParams(searchQuery, statusFilter, sort, tag);
   };
 
+  const handleReset = () => {
+    updateSearchParams("", "", "", "");
+  };
+
   return {
     searchQuery,
     statusFilter,
@@ -65,6 +70,7 @@ function useLibraryParams(): useLibraryParamsResult {
     handleStatusFilterChange,
     handleSortChange,
     handleTagFilterChange,
+    handleReset,
   };
 }
 

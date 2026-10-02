@@ -23,6 +23,7 @@ function MyLibrary() {
     handleStatusFilterChange,
     handleSortChange,
     handleTagFilterChange,
+    handleReset,
   } = useLibraryParams();
 
   const { movies, loadingMovies, moviesError } = useLibraryMovies(
@@ -61,6 +62,7 @@ function MyLibrary() {
           onStatusFilterChange={handleStatusFilterChange}
           onSortChange={handleSortChange}
           onTagFilterChange={handleTagFilterChange}
+          onReset={handleReset}
         ></LibraryToolbar>
 
         <section className="library-results">
