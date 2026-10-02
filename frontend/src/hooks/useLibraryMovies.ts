@@ -4,8 +4,8 @@ import type { LibraryMovie } from "../types/LibraryMovie";
 
 type UseLibraryMoviesResult = {
   movies: LibraryMovie[];
-  loading: boolean;
-  error: string | null;
+  loadingMovies: boolean;
+  moviesError: string | null;
 };
 
 function useLibraryMovies(
@@ -15,13 +15,13 @@ function useLibraryMovies(
   tagFilter: string,
 ): UseLibraryMoviesResult {
   const [movies, setMovies] = useState<LibraryMovie[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [loadingMovies, setLoadingMovies] = useState(true);
+  const [moviesError, setMoviesError] = useState<string | null>(null);
 
   useEffect(() => {
     async function loadMovies(): Promise<void> {
       try {
-        setLoading(true);
+        setLoadingMovies(true);
 
         const libraryMovies: LibraryMovie[] = await getLibrary(
           searchQuery,
@@ -30,24 +30,24 @@ function useLibraryMovies(
           tagFilter,
         );
 
-        setError(null);
+        setMoviesError(null);
         setMovies(libraryMovies);
       } catch (caughtError) {
         console.error(caughtError);
-        setError(
+        setMoviesError(
           "We couldn't load the library movies. Please try again later.",
         );
 
         setMovies([]);
       } finally {
-        setLoading(false);
+        setLoadingMovies(false);
       }
     }
 
     loadMovies();
   }, [searchQuery, statusFilter, sort, tagFilter]);
 
-  return { movies, loading, error };
+  return { movies, loadingMovies, moviesError };
 }
 
 export default useLibraryMovies;

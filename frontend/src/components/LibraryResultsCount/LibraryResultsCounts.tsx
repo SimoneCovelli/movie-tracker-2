@@ -20,7 +20,7 @@ function LibraryResultsCount({
       )}
 
       {!movieCounts && (
-        <div className="results-count">Movie count unavailable</div>
+        <div className="results-count">Results count unavailable</div>
       )}
     </>
   );

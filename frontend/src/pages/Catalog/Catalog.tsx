@@ -3,7 +3,7 @@ import Navbar from "../../components/NavBar/NavBar.tsx";
 import SearchBar from "../../components/SearchBar/SearchBar.tsx";
 import PageNumber from "../../components/PageNumber/PageNumber.tsx";
 import CatalogMovieCard from "../../components/CatalogMovieCard/CatalogMovieCard.tsx";
-import Loading from "../../components/Loading/Loading.tsx";
+import LoadingMovies from "../../components/LoadingMovies/LoadingMovies.tsx";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage.tsx";
 import MoviesNotFoundMessage from "../../components/MoviesNotFoundMessage/MoviesNotFoundMessage.tsx";
 import useCatalogParams from "../../hooks/useCatalogParams.ts";
@@ -38,7 +38,7 @@ function Catalog() {
             onPageChange={handlePageChange}
           ></PageNumber>
 
-          {loading && <Loading loadingMessage="Loading movies..."></Loading>}
+          {loading && <LoadingMovies>Loading movies...</LoadingMovies>}
 
           {!loading && !error && movies.length > 0 && (
             <div className="movie-grid">

@@ -1,0 +1,25 @@
+.loading-counts-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.loading-counts-container p {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.loading-counts-spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--color-secondary);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: loading-spin 0.8s linear infinite;
+}
+
+@keyframes loading-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -17,7 +17,7 @@ function LibraryStats({ movieCounts }: LibraryStatsProps) {
       )}
 
       {!movieCounts && (
-        <div className="library-stats">Movie count unavailable</div>
+        <div className="library-stats">Movie counts unavailable</div>
       )}
     </>
   );

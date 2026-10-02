@@ -7,6 +7,13 @@
   font-size: 28px;
 }
 
+.library-results {
+  display: flex;
+  flex-direction: column;
+  margin-top: 22px;
+  gap: 16px;
+}
+
 .movie-list {
   display: flex;
   flex-direction: column;
