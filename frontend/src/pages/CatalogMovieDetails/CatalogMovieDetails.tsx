@@ -52,9 +52,11 @@ function CatalogMovieDetails() {
           ← Back to catalog
         </BackLink>
 
-        {loading && <LoadingMovies>Loading movies...</LoadingMovies>}
-
-        {!loading && !error && movie && (
+        {loading ? (
+          <LoadingMovies>Loading movies...</LoadingMovies>
+        ) : error ? (
+          <ErrorMessage error={error}></ErrorMessage>
+        ) : movie ? (
           <section>
             <MovieDetails movie={movie}>
               <button
@@ -82,9 +84,7 @@ function CatalogMovieDetails() {
               Failed to add movie to your library.
             </ErrorToast>
           </section>
-        )}
-
-        {!loading && error && <ErrorMessage error={error}></ErrorMessage>}
+        ) : null}
       </main>
     </>
   );

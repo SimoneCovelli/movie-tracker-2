@@ -38,9 +38,13 @@ function Catalog() {
             onPageChange={handlePageChange}
           ></PageNumber>
 
-          {loading && <LoadingMovies>Loading movies...</LoadingMovies>}
-
-          {!loading && !error && movies.length > 0 && (
+          {loading ? (
+            <LoadingMovies>Loading movies...</LoadingMovies>
+          ) : error ? (
+            <ErrorMessage error={error}></ErrorMessage>
+          ) : movies.length === 0 ? (
+            <MoviesNotFoundMessage></MoviesNotFoundMessage>
+          ) : (
             <div className="movie-grid">
               {movies.map((movie) => (
                 <CatalogMovieCard
@@ -52,12 +56,6 @@ function Catalog() {
               ))}
             </div>
           )}
-
-          {!loading && !error && movies.length === 0 && (
-            <MoviesNotFoundMessage></MoviesNotFoundMessage>
-          )}
-
-          {!loading && error && <ErrorMessage error={error}></ErrorMessage>}
         </section>
       </main>
     </>
