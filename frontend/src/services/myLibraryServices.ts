@@ -64,7 +64,7 @@ export async function getLibrary(
 
 export async function getLibraryMovie(
   movieId: string | null,
-): Promise<LibraryMovie | null> {
+): Promise<LibraryMovie> {
   if (!movieId) throw new Error("Movie ID is missing");
 
   const params = new URLSearchParams({
@@ -79,6 +79,7 @@ export async function getLibraryMovie(
   await checkResponse(response);
 
   const movie: LibraryMovie | null = await response.json();
+  if (!movie) throw new Error(`No movie found with ID "${movieId}"`);
   return movie;
 }
 

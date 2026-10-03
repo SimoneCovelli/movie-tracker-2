@@ -27,6 +27,8 @@ function CatalogMovieDetails() {
   const {
     showSuccessToast,
     showErrorToast,
+    successToastMessage,
+    errorToastMessage,
     showSuccessToastTemporarily,
     showErrorToastTemporarily,
   } = useToast();
@@ -35,11 +37,11 @@ function CatalogMovieDetails() {
     try {
       await addMovieToLibrary(movieStatus);
       setIsAddToLibraryModalOpen(false);
-      showSuccessToastTemporarily();
+      showSuccessToastTemporarily("Movie added to your library");
     } catch (caughtError) {
       console.error(caughtError);
       setIsAddToLibraryModalOpen(false);
-      showErrorToastTemporarily();
+      showErrorToastTemporarily("Failed to add movie to your library");
     }
   };
 
@@ -53,7 +55,7 @@ function CatalogMovieDetails() {
         </BackLink>
 
         {loading ? (
-          <LoadingMovies>Loading movies...</LoadingMovies>
+          <LoadingMovies>Loading movie...</LoadingMovies>
         ) : error ? (
           <ErrorMessage error={error}></ErrorMessage>
         ) : movie ? (
@@ -77,12 +79,10 @@ function CatalogMovieDetails() {
             ></AddToLibraryModal>
 
             <SuccessToast isOpen={showSuccessToast}>
-              Movie added to your library.
+              {successToastMessage}
             </SuccessToast>
 
-            <ErrorToast isOpen={showErrorToast}>
-              Failed to add movie to your library.
-            </ErrorToast>
+            <ErrorToast isOpen={showErrorToast}>{errorToastMessage}</ErrorToast>
           </section>
         ) : null}
       </main>

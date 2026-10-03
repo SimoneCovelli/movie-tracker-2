@@ -3,13 +3,18 @@ import { useRef, useState } from "react";
 type useToastResult = {
   showSuccessToast: boolean;
   showErrorToast: boolean;
-  showSuccessToastTemporarily: () => void;
-  showErrorToastTemporarily: () => void;
+  successToastMessage: string;
+  errorToastMessage: string;
+  showSuccessToastTemporarily: (successMessage: string) => void;
+  showErrorToastTemporarily: (errorMessage: string) => void;
 };
 
 function useToast(): useToastResult {
   const [showSuccessToast, setShowSuccessToast] = useState(false);
   const [showErrorToast, setShowErrorToast] = useState(false);
+
+  const [successToastMessage, setSuccessToastMessage] = useState("");
+  const [errorToastMessage, setErrorToastMessage] = useState("");
 
   const toastTimeoutId = useRef<number | null>(null);
 
@@ -20,16 +25,18 @@ function useToast(): useToastResult {
     }, 2500);
   };
 
-  const showSuccessToastTemporarily = (): void => {
+  const showSuccessToastTemporarily = (successMessage: string): void => {
     if (toastTimeoutId.current !== null) clearTimeout(toastTimeoutId.current);
     setShowErrorToast(false);
+    setSuccessToastMessage(successMessage);
     setShowSuccessToast(true);
     startToastTimeout(setShowSuccessToast);
   };
 
-  const showErrorToastTemporarily = (): void => {
+  const showErrorToastTemporarily = (errorMessage: string): void => {
     if (toastTimeoutId.current !== null) clearTimeout(toastTimeoutId.current);
     setShowSuccessToast(false);
+    setErrorToastMessage(errorMessage);
     setShowErrorToast(true);
     startToastTimeout(setShowErrorToast);
   };
@@ -37,6 +44,8 @@ function useToast(): useToastResult {
   return {
     showSuccessToast,
     showErrorToast,
+    successToastMessage,
+    errorToastMessage,
     showSuccessToastTemporarily,
     showErrorToastTemporarily,
   };

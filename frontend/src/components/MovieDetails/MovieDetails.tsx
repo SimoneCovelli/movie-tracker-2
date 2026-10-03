@@ -4,7 +4,7 @@ import type { Movie } from "../../types/Movie";
 
 type MovieDetailsProps = {
   movie: Movie;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 };
 
 function MovieDetails({ movie, children }: MovieDetailsProps) {
