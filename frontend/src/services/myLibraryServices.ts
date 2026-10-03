@@ -19,7 +19,7 @@ export async function getTags(): Promise<string[]> {
 
   await checkResponse(response);
 
-  const tags = await response.json();
+  const tags: string[] = await response.json();
   return tags;
 }
 
@@ -60,4 +60,123 @@ export async function getLibrary(
 
   const library: LibraryMovie[] = await response.json();
   return library;
+}
+
+export async function getLibraryMovie(
+  movieId: string | null,
+): Promise<LibraryMovie | null> {
+  if (!movieId) throw new Error("Movie ID is missing");
+
+  const params = new URLSearchParams({
+    action: "getMovie",
+    id: movieId,
+  });
+
+  const response = await fetch(
+    `http://localhost:8000/api/myLibrary/myLibraryMovie.php?${params}`,
+  );
+
+  await checkResponse(response);
+
+  const movie: LibraryMovie | null = await response.json();
+  return movie;
+}
+
+export async function updateMovieStatus(
+  movieId: string | null,
+  status: string,
+): Promise<void> {
+  if (!movieId) throw new Error("Movie ID is missing");
+
+  const params = new URLSearchParams({
+    action: "updateStatus",
+    id: movieId,
+  });
+
+  const response = await fetch(
+    `http://localhost:8000/api/myLibrary/myLibraryMovie.php?${params}`,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        status: status,
+      }),
+    },
+  );
+
+  await checkResponse(response);
+}
+
+export async function updateMovieRating(
+  movieId: string | null,
+  rating: number | null,
+): Promise<void> {
+  if (!movieId) throw new Error("Movie ID is missing");
+
+  const params = new URLSearchParams({
+    action: "updateRating",
+    id: movieId,
+  });
+
+  const response = await fetch(
+    `http://localhost:8000/api/myLibrary/myLibraryMovie.php?${params}`,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        rating: rating,
+      }),
+    },
+  );
+
+  await checkResponse(response);
+}
+
+export async function updateMovieTags(
+  movieId: string | null,
+  tags: string[],
+): Promise<void> {
+  if (!movieId) throw new Error("Movie ID is missing");
+
+  const params = new URLSearchParams({
+    action: "updateTags",
+    id: movieId,
+  });
+
+  const response = await fetch(
+    `http://localhost:8000/api/myLibrary/myLibraryMovie.php?${params}`,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        tags: tags,
+      }),
+    },
+  );
+
+  await checkResponse(response);
+}
+
+export async function deleteMovie(movieId: string | null): Promise<void> {
+  if (!movieId) throw new Error("Movie ID is missing");
+
+  const params = new URLSearchParams({
+    action: "deleteMovie",
+    id: movieId,
+  });
+
+  const response = await fetch(
+    `http://localhost:8000/api/myLibrary/myLibraryMovie.php?${params}`,
+    {
+      method: "DELETE",
+    },
+  );
+
+  await checkResponse(response);
 }
