@@ -1,5 +1,5 @@
 import { useLocation, useParams, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./MyLibraryMovieDetails.css";
 import Navbar from "../../components/NavBar/NavBar";
 import BackLink from "../../components/BackLink/BackLink";
@@ -16,13 +16,14 @@ import DeleteMovieModal from "../../components/DeleteMovieModal/DeleteMovieModal
 import useLibraryMovie from "../../hooks/useLibraryMovie";
 import useToast from "../../hooks/useToast";
 import useLibraryTags from "../../hooks/useLibraryTags";
-import type { MovieStatus } from "../../types/MovieStatus";
+import useLibraryMovieDetails from "../../hooks/useLibraryMovieDetails";
 import {
-  updateMovieRating,
   updateMovieStatus,
+  updateMovieRating,
   updateMovieTags,
   deleteMovie,
 } from "../../services/myLibraryServices";
+import type { MovieStatus } from "../../types/MovieStatus";
 
 function MyLibraryMovieDetails() {
   const location = useLocation();
@@ -35,6 +36,15 @@ function MyLibraryMovieDetails() {
   const { libraryTags, loadingTags } = useLibraryTags();
 
   const {
+    movieStatus,
+    movieRating,
+    movieTags,
+    setMovieStatus,
+    setMovieRating,
+    setMovieTags,
+  } = useLibraryMovieDetails(movie);
+
+  const {
     showSuccessToast,
     showErrorToast,
     successToastMessage,
@@ -43,20 +53,8 @@ function MyLibraryMovieDetails() {
     showErrorToastTemporarily,
   } = useToast();
 
-  const [movieStatus, setMovieStatus] = useState<MovieStatus>("to-watch");
-  const [movieRating, setMovieRating] = useState<number | null>(null);
-  const [movieTags, setMovieTags] = useState<string[]>([]);
-
   const [isEditTagsModalOpen, setIsEditTagsModalOpen] = useState(false);
   const [isDeleteMovieModalOpen, setIsDeleteMovieModalOpen] = useState(false);
-
-  useEffect(() => {
-    if (!movie) return;
-
-    setMovieStatus(movie.status);
-    setMovieRating(movie.rating);
-    setMovieTags(movie.tags);
-  }, [movie]);
 
   const handleStatusChange = async (status: MovieStatus) => {
     try {
