@@ -1,4 +1,4 @@
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./MyLibraryMovieDetails.css";
 import Navbar from "../../components/NavBar/NavBar";
@@ -12,6 +12,7 @@ import MovieStatusSelect from "../../components/MovieStatusSelect/MovieStatusSel
 import MovieRatingControl from "../../components/MovieRatingControl/MovieRatingControl";
 import MovieTagsSection from "../../components/MovieTagsSection/MovieTagsSection";
 import EditTagsModal from "../../components/EditTagsModal/EditTagsModal";
+import DeleteMovieModal from "../../components/DeleteMovieModal/DeleteMovieModal";
 import useLibraryMovie from "../../hooks/useLibraryMovie";
 import useToast from "../../hooks/useToast";
 import useLibraryTags from "../../hooks/useLibraryTags";
@@ -20,10 +21,12 @@ import {
   updateMovieRating,
   updateMovieStatus,
   updateMovieTags,
+  deleteMovie,
 } from "../../services/myLibraryServices";
 
 function MyLibraryMovieDetails() {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const { movieId: idParam } = useParams();
   const movieId = idParam ? idParam : null;
@@ -43,7 +46,9 @@ function MyLibraryMovieDetails() {
   const [movieStatus, setMovieStatus] = useState<MovieStatus>("to-watch");
   const [movieRating, setMovieRating] = useState<number | null>(null);
   const [movieTags, setMovieTags] = useState<string[]>([]);
+
   const [isEditTagsModalOpen, setIsEditTagsModalOpen] = useState(false);
+  const [isDeleteMovieModalOpen, setIsDeleteMovieModalOpen] = useState(false);
 
   useEffect(() => {
     if (!movie) return;
@@ -86,8 +91,20 @@ function MyLibraryMovieDetails() {
       showSuccessToastTemporarily("Tags updated successfully");
     } catch (caughtError) {
       console.error(caughtError);
-      setIsEditTagsModalOpen(false);
       showErrorToastTemporarily("Failed to update movie tags");
+    }
+  };
+
+  const handleDeleteMovie = async () => {
+    try {
+      await deleteMovie(movieId);
+      setIsDeleteMovieModalOpen(false);
+      navigate(location.state?.from ?? "/myLibrary", {
+        state: { movieDeleted: true },
+      });
+    } catch (caughtError) {
+      console.error(caughtError);
+      showErrorToastTemporarily("Failed to delete movie");
     }
   };
 
@@ -127,11 +144,15 @@ function MyLibraryMovieDetails() {
                 onEditTags={() => setIsEditTagsModalOpen(true)}
               ></MovieTagsSection>
 
-              {/* <div className="movie-delete-zone">
-                <button type="button" className="delete-movie-button">
+              <div className="delete-movie-section">
+                <button
+                  type="button"
+                  className="delete-movie-button"
+                  onClick={() => setIsDeleteMovieModalOpen(true)}
+                >
                   Delete from library
                 </button>
-              </div> */}
+              </div>
             </section>
           </div>
         ) : null}
@@ -145,36 +166,17 @@ function MyLibraryMovieDetails() {
           onSave={handleSaveTags}
         ></EditTagsModal>
 
+        <DeleteMovieModal
+          isOpen={isDeleteMovieModalOpen}
+          onClose={() => setIsDeleteMovieModalOpen(false)}
+          onDelete={handleDeleteMovie}
+        ></DeleteMovieModal>
+
         <SuccessToast isOpen={showSuccessToast}>
           {successToastMessage}
         </SuccessToast>
 
         <ErrorToast isOpen={showErrorToast}>{errorToastMessage}</ErrorToast>
-
-        {/* <div id="delete-movie-modal" class="modal hidden">
-          <div class="modal-content delete-movie-modal-content">
-            <h2>Delete movie</h2>
-            <p>Are you sure you want to delete this movie from your library?</p>
-
-            <div class="modal-actions delete-movie-modal-actions">
-              <button
-                type="button"
-                id="cancel-delete-movie"
-                class="cancel-button"
-              >
-                Cancel
-              </button>
-
-              <button
-                type="button"
-                id="confirm-delete-movie"
-                class="delete-button"
-              >
-                Delete
-              </button>
-            </div>
-          </div>
-        </div> */}
       </main>
     </>
   );

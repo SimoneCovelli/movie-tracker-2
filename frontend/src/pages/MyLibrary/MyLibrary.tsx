@@ -8,10 +8,12 @@ import ErrorMessage from "../../components/ErrorMessage/ErrorMessage.tsx";
 import MoviesNotFoundMessage from "../../components/MoviesNotFoundMessage/MoviesNotFoundMessage.tsx";
 import LibraryMovieCard from "../../components/LibraryMovieCard/LibraryMovieCard.tsx";
 import LibraryResultsCount from "../../components/LibraryResultsCount/LibraryResultsCounts.tsx";
+import SuccessToast from "../../components/SuccessToast/SuccessToast.tsx";
 import useLibraryParams from "../../hooks/useLibraryParams.ts";
 import useLibraryMovies from "../../hooks/useLibraryMovies.ts";
 import useLibraryTags from "../../hooks/useLibraryTags.ts";
 import useLibraryCounts from "../../hooks/useLibraryCounts.ts";
+import useMovieDeletedToast from "../../hooks/useMovieDeletedToast.ts";
 
 function MyLibrary() {
   const {
@@ -35,6 +37,8 @@ function MyLibrary() {
 
   const { libraryTags, loadingTags } = useLibraryTags();
   const { movieCounts, loadingCounts } = useLibraryCounts();
+
+  const { showSuccessToast, successToastMessage } = useMovieDeletedToast();
 
   return (
     <>
@@ -97,10 +101,9 @@ function MyLibrary() {
           )}
         </section>
 
-        {/* <div
-          id="library-success-message"
-          className="success-message hidden"
-        ></div> */}
+        <SuccessToast isOpen={showSuccessToast}>
+          {successToastMessage}
+        </SuccessToast>
       </main>
     </>
   );

@@ -1,0 +1,15 @@
+.delete-movie-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 0 32px 24px 32px;
+}
+
+.delete-button {
+  background-color: var(--color-danger);
+  color: var(--color-text);
+}
+
+.delete-button:hover:not(:disabled) {
+  background-color: var(--color-danger-hover);
+}

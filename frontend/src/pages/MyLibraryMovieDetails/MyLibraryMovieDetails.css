@@ -12,7 +12,7 @@
 
 /* delete movie */
 
-.movie-delete-zone {
+.delete-movie-section {
   display: flex;
   justify-content: flex-end;
   margin-top: 22px;
