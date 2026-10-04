@@ -3,19 +3,23 @@ import { useState, useEffect } from "react";
 import "./MyLibraryMovieDetails.css";
 import Navbar from "../../components/NavBar/NavBar";
 import BackLink from "../../components/BackLink/BackLink";
-import LoadingMovies from "../../components/LoadingMovies/LoadingMovies";
+import PageLoader from "../../components/PageLoader/PageLoader";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import MovieDetails from "../../components/MovieDetails/MovieDetails";
 import SuccessToast from "../../components/SuccessToast/SuccessToast";
 import ErrorToast from "../../components/ErrorToast/ErrorToast";
 import MovieStatusSelect from "../../components/MovieStatusSelect/MovieStatusSelect";
 import MovieRatingControl from "../../components/MovieRatingControl/MovieRatingControl";
+import MovieTagsSection from "../../components/MovieTagsSection/MovieTagsSection";
+import EditTagsModal from "../../components/EditTagsModal/EditTagsModal";
 import useLibraryMovie from "../../hooks/useLibraryMovie";
 import useToast from "../../hooks/useToast";
+import useLibraryTags from "../../hooks/useLibraryTags";
 import type { MovieStatus } from "../../types/MovieStatus";
 import {
   updateMovieRating,
   updateMovieStatus,
+  updateMovieTags,
 } from "../../services/myLibraryServices";
 
 function MyLibraryMovieDetails() {
@@ -25,6 +29,7 @@ function MyLibraryMovieDetails() {
   const movieId = idParam ? idParam : null;
 
   const { movie, loading, error } = useLibraryMovie(movieId);
+  const { libraryTags, loadingTags } = useLibraryTags();
 
   const {
     showSuccessToast,
@@ -35,21 +40,24 @@ function MyLibraryMovieDetails() {
     showErrorToastTemporarily,
   } = useToast();
 
-  const [status, setStatus] = useState<MovieStatus>("to-watch");
-  const [rating, setRating] = useState<number | null>(null);
+  const [movieStatus, setMovieStatus] = useState<MovieStatus>("to-watch");
+  const [movieRating, setMovieRating] = useState<number | null>(null);
+  const [movieTags, setMovieTags] = useState<string[]>([]);
+  const [isEditTagsModalOpen, setIsEditTagsModalOpen] = useState(false);
 
   useEffect(() => {
     if (!movie) return;
 
-    setStatus(movie.status);
-    setRating(movie.rating);
+    setMovieStatus(movie.status);
+    setMovieRating(movie.rating);
+    setMovieTags(movie.tags);
   }, [movie]);
 
   const handleStatusChange = async (status: MovieStatus) => {
     try {
       await updateMovieStatus(movieId, status);
-      setStatus(status);
-      setRating(null);
+      setMovieStatus(status);
+      setMovieRating(null);
       showSuccessToastTemporarily(`Status updated to "${status}"`);
     } catch (caughtError) {
       console.error(caughtError);
@@ -60,13 +68,26 @@ function MyLibraryMovieDetails() {
   const handleRatingChange = async (rating: number | null) => {
     try {
       await updateMovieRating(movieId, rating);
-      setRating(rating);
+      setMovieRating(rating);
       showSuccessToastTemporarily(
         rating === null ? "Rating removed" : `Rating updated to ${rating}`,
       );
     } catch (caughtError) {
       console.error(caughtError);
       showErrorToastTemporarily("Failed to update movie rating");
+    }
+  };
+
+  const handleSaveTags = async (selectedTags: string[]) => {
+    try {
+      await updateMovieTags(movieId, selectedTags);
+      setMovieTags(selectedTags);
+      setIsEditTagsModalOpen(false);
+      showSuccessToastTemporarily("Tags updated successfully");
+    } catch (caughtError) {
+      console.error(caughtError);
+      setIsEditTagsModalOpen(false);
+      showErrorToastTemporarily("Failed to update movie tags");
     }
   };
 
@@ -80,43 +101,49 @@ function MyLibraryMovieDetails() {
         </BackLink>
 
         {loading ? (
-          <LoadingMovies>Loading movie...</LoadingMovies>
+          <PageLoader>Loading movie...</PageLoader>
         ) : error ? (
           <ErrorMessage error={error}></ErrorMessage>
         ) : movie ? (
-          <section>
+          <div>
             <MovieDetails movie={movie}></MovieDetails>
 
             <section className="library-movie-actions">
               <div className="library-movie-settings">
                 <MovieStatusSelect
-                  value={status}
+                  value={movieStatus}
                   onValueChange={handleStatusChange}
                 ></MovieStatusSelect>
 
                 <MovieRatingControl
-                  movieStatus={status}
-                  value={rating}
+                  movieStatus={movieStatus}
+                  value={movieRating}
                   onValueChange={handleRatingChange}
                 ></MovieRatingControl>
               </div>
 
-              {/* <div className="movie-tags-row">
-        <div className="movie-tags-container"></div>
+              <MovieTagsSection
+                tags={movieTags}
+                onEditTags={() => setIsEditTagsModalOpen(true)}
+              ></MovieTagsSection>
 
-        <button type="button" className="edit-tags-button">
-          Edit tags
-        </button>
-      </div>
-
-      <div className="movie-delete-zone">
-        <button type="button" className="delete-movie-button">
-          Delete from library
-        </button>
-      </div> */}
+              {/* <div className="movie-delete-zone">
+                <button type="button" className="delete-movie-button">
+                  Delete from library
+                </button>
+              </div> */}
             </section>
-          </section>
+          </div>
         ) : null}
+
+        <EditTagsModal
+          isOpen={isEditTagsModalOpen}
+          libraryTags={libraryTags}
+          movieTags={movieTags}
+          loadingTags={loadingTags}
+          onClose={() => setIsEditTagsModalOpen(false)}
+          onSave={handleSaveTags}
+        ></EditTagsModal>
 
         <SuccessToast isOpen={showSuccessToast}>
           {successToastMessage}
@@ -124,25 +151,7 @@ function MyLibraryMovieDetails() {
 
         <ErrorToast isOpen={showErrorToast}>{errorToastMessage}</ErrorToast>
 
-        {/* <div id="edit-tags-modal" class="modal hidden">
-          <div class="modal-content edit-tag-modal-content">
-            <h2>Edit tags</h2>
-
-            <div id="edit-tags-list" class="movie-edit-tags-list"></div>
-
-            <div class="modal-actions edit-tag-modal-actions">
-              <button type="button" id="cancel-edit-tags" class="cancel-button">
-                Cancel
-              </button>
-
-              <button type="button" id="save-edit-tags" class="confirm-button">
-                Save changes
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div id="delete-movie-modal" class="modal hidden">
+        {/* <div id="delete-movie-modal" class="modal hidden">
           <div class="modal-content delete-movie-modal-content">
             <h2>Delete movie</h2>
             <p>Are you sure you want to delete this movie from your library?</p>

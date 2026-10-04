@@ -3,7 +3,7 @@ import { useState } from "react";
 import "./CatalogMovieDetails.css";
 import Navbar from "../../components/NavBar/NavBar.tsx";
 import BackLink from "../../components/BackLink/BackLink.tsx";
-import LoadingMovies from "../../components/LoadingMovies/LoadingMovies.tsx";
+import PageLoader from "../../components/PageLoader/PageLoader.tsx";
 import MovieDetails from "../../components/MovieDetails/MovieDetails.tsx";
 import AddToLibraryModal from "../../components/AddToLibraryModal/AddToLibraryModal.tsx";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage.tsx";
@@ -55,7 +55,7 @@ function CatalogMovieDetails() {
         </BackLink>
 
         {loading ? (
-          <LoadingMovies>Loading movie...</LoadingMovies>
+          <PageLoader>Loading movie...</PageLoader>
         ) : error ? (
           <ErrorMessage error={error}></ErrorMessage>
         ) : movie ? (

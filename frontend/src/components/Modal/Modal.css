@@ -57,7 +57,12 @@
   color: var(--color-text-secondary);
 }
 
-.cancel-button:hover {
+.cancel-button:hover:not(:disabled) {
   background-color: var(--color-surface-hover);
   color: var(--color-text);
+}
+
+.cancel-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }

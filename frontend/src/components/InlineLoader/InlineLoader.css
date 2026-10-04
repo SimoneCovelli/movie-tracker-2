@@ -1,15 +1,16 @@
-.loading-counts-container {
+.inline-loader-container {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
-.loading-counts-container p {
+.inline-loader-container p {
   margin: 0;
+  padding: 0;
   color: var(--color-text-muted);
 }
 
-.loading-counts-spinner {
+.inline-loader-spinner {
   width: 14px;
   height: 14px;
   border: 2px solid var(--color-secondary);

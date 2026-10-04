@@ -2,8 +2,8 @@ import "./MyLibrary.css";
 import Navbar from "../../components/NavBar/NavBar.tsx";
 import LibraryToolbar from "../../components/LibraryToolbar/LibraryToolbar.tsx";
 import LibraryStats from "../../components/LibraryStats/LibraryStats.tsx";
-import LoadingMovies from "../../components/LoadingMovies/LoadingMovies.tsx";
-import LoadingCounts from "../../components/LoadingCounts/LoadingCounts.tsx";
+import PageLoader from "../../components/PageLoader/PageLoader.tsx";
+import InlineLoader from "../../components/InlineLoader/InlineLoader.tsx";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage.tsx";
 import MoviesNotFoundMessage from "../../components/MoviesNotFoundMessage/MoviesNotFoundMessage.tsx";
 import LibraryMovieCard from "../../components/LibraryMovieCard/LibraryMovieCard.tsx";
@@ -33,7 +33,7 @@ function MyLibrary() {
     tagFilter,
   );
 
-  const { movieTags, loadingTags } = useLibraryTags();
+  const { libraryTags, loadingTags } = useLibraryTags();
   const { movieCounts, loadingCounts } = useLibraryCounts();
 
   return (
@@ -45,7 +45,7 @@ function MyLibrary() {
           <h1>My Movie Library</h1>
 
           {loadingCounts ? (
-            <LoadingCounts>Loading movie counts...</LoadingCounts>
+            <InlineLoader>Loading movie counts...</InlineLoader>
           ) : (
             <LibraryStats movieCounts={movieCounts}></LibraryStats>
           )}
@@ -56,7 +56,7 @@ function MyLibrary() {
           statusFilter={statusFilter}
           sort={sort}
           tagFilter={tagFilter}
-          tags={movieTags}
+          tags={libraryTags}
           loadingTags={loadingTags}
           onSearch={handleOnSearch}
           onStatusFilterChange={handleStatusFilterChange}
@@ -67,7 +67,7 @@ function MyLibrary() {
 
         <section className="library-results">
           {loadingCounts ? (
-            <LoadingCounts>Loading results count...</LoadingCounts>
+            <InlineLoader>Loading results count...</InlineLoader>
           ) : (
             <LibraryResultsCount
               displayedMovieCount={movies.length}
@@ -76,7 +76,7 @@ function MyLibrary() {
           )}
 
           {loadingMovies ? (
-            <LoadingMovies>Loading movies...</LoadingMovies>
+            <PageLoader>Loading movies...</PageLoader>
           ) : moviesError ? (
             <ErrorMessage error={moviesError}></ErrorMessage>
           ) : movies.length === 0 ? (

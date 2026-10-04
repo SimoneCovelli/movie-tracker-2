@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import { getTags } from "../services/myLibraryServices";
 
 type UseLibraryTagsResult = {
-  movieTags: string[];
+  libraryTags: string[];
   loadingTags: boolean;
 };
 
 function useLibraryTags(): UseLibraryTagsResult {
-  const [movieTags, setMovieTags] = useState<string[]>([]);
+  const [libraryTags, setLibraryTags] = useState<string[]>([]);
   const [loadingTags, setLoadingTags] = useState(true);
 
   useEffect(() => {
@@ -15,10 +15,10 @@ function useLibraryTags(): UseLibraryTagsResult {
       try {
         setLoadingTags(true);
         const tags = await getTags();
-        setMovieTags(tags);
+        setLibraryTags(tags);
       } catch (caughtError) {
         console.error(caughtError);
-        setMovieTags([]);
+        setLibraryTags([]);
       } finally {
         setLoadingTags(false);
       }
@@ -27,7 +27,7 @@ function useLibraryTags(): UseLibraryTagsResult {
     loadTags();
   }, []);
 
-  return { movieTags, loadingTags };
+  return { libraryTags, loadingTags };
 }
 
 export default useLibraryTags;

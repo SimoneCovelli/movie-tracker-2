@@ -3,7 +3,7 @@ import Navbar from "../../components/NavBar/NavBar.tsx";
 import SearchBar from "../../components/SearchBar/SearchBar.tsx";
 import PageNumber from "../../components/PageNumber/PageNumber.tsx";
 import CatalogMovieCard from "../../components/CatalogMovieCard/CatalogMovieCard.tsx";
-import LoadingMovies from "../../components/LoadingMovies/LoadingMovies.tsx";
+import PageLoader from "../../components/PageLoader/PageLoader.tsx";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage.tsx";
 import MoviesNotFoundMessage from "../../components/MoviesNotFoundMessage/MoviesNotFoundMessage.tsx";
 import useCatalogParams from "../../hooks/useCatalogParams.ts";
@@ -39,7 +39,7 @@ function Catalog() {
           ></PageNumber>
 
           {loading ? (
-            <LoadingMovies>Loading movies...</LoadingMovies>
+            <PageLoader>Loading movies...</PageLoader>
           ) : error ? (
             <ErrorMessage error={error}></ErrorMessage>
           ) : movies.length === 0 ? (

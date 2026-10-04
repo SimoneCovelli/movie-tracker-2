@@ -1,0 +1,49 @@
+.movie-tags-section {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.movie-tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.movie-tag {
+  padding: 5px 9px;
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+}
+
+.no-tags {
+  padding-left: 17px;
+  color: var(--color-text-muted);
+  font-size: 13px;
+}
+
+.edit-tags-button {
+  flex-shrink: 0;
+  margin-left: auto;
+  padding: 5px 12px;
+  background-color: transparent;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  cursor: pointer;
+}
+
+.movie-tag,
+.edit-tags-button {
+  line-height: 1;
+  border-radius: 5px;
+  font-size: 13px;
+}
+
+.edit-tags-button:hover {
+  background-color: var(--color-primary);
+  color: var(--color-bg);
+  border-color: var(--color-primary);
+}
